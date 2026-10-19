@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.novadeskt.controller.DashboardController"
+            styleClass="root">
+    <top>
+        <VBox spacing="6" styleClass="header">
+            <padding>
+                <Insets top="22" right="24" bottom="22" left="24"/>
+            </padding>
+            <Label text="NovaDeskt" styleClass="app-title"/>
+            <Label text="Votre espace de gestion de projets"
+                   styleClass="subtitle"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="14">
+            <padding>
+                <Insets top="24" right="24" bottom="24" left="24"/>
+            </padding>
+            <Label text="Mes projets" styleClass="section-title"/>
+            <HBox spacing="10">
+                <TextField fx:id="projectNameField"
+                           promptText="Nom du nouveau projet"
+                           HBox.hgrow="ALWAYS"/>
+                <Button text="Créer un projet"
+                        onAction="#handleCreateProject"
+                        styleClass="primary-button"/>
+            </HBox>
+            <ListView fx:id="projectList" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="statusLabel" text="Prêt."/>
+        </VBox>
+    </center>
+</BorderPane>

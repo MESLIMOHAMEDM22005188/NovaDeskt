@@ -1,0 +1,38 @@
+﻿.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f5f7fb;
+}
+.header {
+    -fx-background-color: #172554;
+}
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #cbd5e1;
+}
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #172554;
+}
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+}
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 16px;
+}
+.primary-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+.list-view {
+    -fx-background-radius: 8px;
+}
