@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="fr.novadeskt.controller.ProjectTasksController"
+			styleClass="root">
+
+	<top>
+		<VBox spacing="8" styleClass="header">
+			<padding>
+				<Insets top="22" right="28" bottom="22" left="28"/>
+			</padding>
+			<Label text="NovaDeskt" styleClass="app-title"/>
+			<Label fx:id="projectTitle"
+				   text="Mon projet"
+				   styleClass="subtitle"/>
+		</VBox>
+	</top>
+
+	<center>
+		<VBox spacing="16">
+			<padding>
+				<Insets top="24" right="28" bottom="24" left="28"/>
+			</padding>
+
+			<HBox spacing="12">
+				<VBox spacing="4" HBox.hgrow="ALWAYS">
+					<Label text="Espace de travail" styleClass="page-title"/>
+					<Label fx:id="taskSummary"
+						   text="0 tâche"
+						   styleClass="muted-label"/>
+				</VBox>
+				<Button text="← Mes projets"
+						onAction="#handleBack"
+						styleClass="primary-button"/>
+			</HBox>
+
+			<HBox spacing="10">
+				<TextField fx:id="searchField"
+						   promptText="Rechercher une tâche..."
+						   HBox.hgrow="ALWAYS"/>
+				<ComboBox fx:id="statusFilter"
+						  promptText="Tous les statuts"
+						  prefWidth="180"/>
+			</HBox>
+
+			<HBox spacing="18" VBox.vgrow="ALWAYS">
+				<VBox spacing="10" prefWidth="300">
+					<Label text="Nouvelle tâche"
+						   styleClass="section-title"/>
+					<TextField fx:id="titleField"
+							   promptText="Titre de la tâche"/>
+					<TextArea fx:id="descriptionField"
+							  promptText="Description"
+							  prefRowCount="4"
+							  wrapText="true"/>
+					<Label text="Échéance" styleClass="muted-label"/>
+					<DatePicker fx:id="dueDatePicker"
+								promptText="Date limite"
+								maxWidth="Infinity"/>
+					<Button text="Ajouter la tâche"
+							onAction="#handleCreateTask"
+							styleClass="primary-button"
+							maxWidth="Infinity"/>
+					<Label fx:id="statusLabel"
+						   text="Prêt."
+						   styleClass="muted-label"/>
+				</VBox>
+
+				<VBox spacing="10" HBox.hgrow="ALWAYS">
+					<Label text="Tâches du projet"
+						   styleClass="section-title"/>
+					<ListView fx:id="taskList"
+							  VBox.vgrow="ALWAYS"/>
+					<HBox spacing="10">
+						<Button text="Modifier"
+								onAction="#handleEditTask"/>
+						<Button text="Supprimer"
+								onAction="#handleDeleteTask"/>
+					</HBox>
+				</VBox>
+			</HBox>
+		</VBox>
+	</center>
+</BorderPane>
