@@ -1,4 +1,4 @@
-﻿package fr.novadeskt;
+package fr.novadeskt;
 
 import fr.novadeskt.config.Database;
 import javafx.application.Application;

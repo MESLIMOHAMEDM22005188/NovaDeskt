@@ -1,4 +1,4 @@
-﻿package fr.novadeskt.model;
+package fr.novadeskt.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-﻿package fr.novadeskt.repository;
+package fr.novadeskt.repository;
 
 import fr.novadeskt.config.Database;
 import fr.novadeskt.model.Task;

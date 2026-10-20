@@ -1,4 +1,4 @@
-﻿package fr.novadeskt.config;
+package fr.novadeskt.config;
 
 import java.io.IOException;
 import java.io.InputStream;

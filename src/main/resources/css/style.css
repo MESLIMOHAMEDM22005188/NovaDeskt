@@ -1,38 +1,108 @@
-﻿.root {
+﻿
+.root {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: #f5f7fb;
+    -fx-background-color: #f4f6fb;
 }
+
 .header {
     -fx-background-color: #172554;
 }
+
 .app-title {
-    -fx-font-size: 28px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
+
 .subtitle {
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
     -fx-text-fill: #cbd5e1;
 }
-.section-title {
-    -fx-font-size: 20px;
+
+.page-title {
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #172554;
 }
-.text-field {
-    -fx-background-radius: 8px;
-    -fx-padding: 10px;
+
+.section-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
 }
+
+.muted-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #dbe2ea;
+    -fx-border-radius: 8px;
+    -fx-padding: 11px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1e293b;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1.5px;
+}
+
 .primary-button {
     -fx-background-color: #2563eb;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-font-size: 13px;
     -fx-background-radius: 8px;
-    -fx-padding: 10px 16px;
+    -fx-padding: 12px 18px;
+    -fx-cursor: hand;
 }
+
 .primary-button:hover {
     -fx-background-color: #1d4ed8;
 }
-.list-view {
+
+.search-field {
+    -fx-background-color: white;
     -fx-background-radius: 8px;
+    -fx-border-color: #dbe2ea;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px;
+    -fx-font-size: 13px;
+}
+
+.search-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1.5px;
+}
+
+.project-list {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.project-list .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 14px;
+    -fx-padding: 14px;
+}
+
+.project-list .list-cell:filled:hover {
+    -fx-background-color: #eff6ff;
+}
+
+.project-list .list-cell:filled:selected {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1d4ed8;
+}
+
+.project-list .list-cell:empty {
+    -fx-background-color: white;
 }

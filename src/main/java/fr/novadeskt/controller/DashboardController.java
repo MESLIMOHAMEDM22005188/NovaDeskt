@@ -1,7 +1,10 @@
-﻿package fr.novadeskt.controller;
+
+package fr.novadeskt.controller;
 
 import fr.novadeskt.repository.ProjectRepository;
 import fr.novadeskt.service.ProjectService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -9,17 +12,36 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Locale;
 
 public class DashboardController {
-    @FXML private TextField projectNameField;
-    @FXML private ListView<String> projectList;
-    @FXML private Label statusLabel;
+
+    @FXML
+    private TextField projectNameField;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private ListView<String> projectList;
+
+    @FXML
+    private Label statusLabel;
 
     private final ProjectService projectService =
             new ProjectService(new ProjectRepository());
 
+    private final ObservableList<String> allProjects =
+            FXCollections.observableArrayList();
+
     @FXML
     private void initialize() {
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) ->
+                        filterProjects(newValue)
+        );
+
         refreshProjects();
     }
 
@@ -27,22 +49,50 @@ public class DashboardController {
     private void handleCreateProject() {
         try {
             projectService.create(projectNameField.getText(), "");
+
             projectNameField.clear();
             refreshProjects();
-            statusLabel.setText("Projet cree.");
+
+            statusLabel.setText("Projet créé avec succès.");
+
         } catch (IllegalArgumentException | SQLException e) {
-            new Alert(Alert.AlertType.ERROR,
-                    "Creation impossible : " + e.getMessage()).showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Impossible de créer le projet");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 
     private void refreshProjects() {
         try {
-            projectList.getItems().clear();
-            projectService.getAll().forEach(
-                    project -> projectList.getItems().add(project.getName()));
+            allProjects.setAll(
+                    projectService.getAll()
+                            .stream()
+                            .map(project -> project.getName())
+                            .toList()
+            );
+
+            filterProjects(searchField.getText());
+
         } catch (SQLException e) {
-            statusLabel.setText("Erreur de lecture de la base.");
+            statusLabel.setText(
+                    "Erreur de lecture de la base de données."
+            );
         }
     }
+
+    private void filterProjects(String query) {
+        String normalizedQuery = query == null
+                ? ""
+                : query.trim().toLowerCase(Locale.ROOT);
+
+        List<String> filteredProjects = allProjects.stream()
+                .filter(name -> name.toLowerCase(Locale.ROOT)
+                        .contains(normalizedQuery))
+                .toList();
+
+        projectList.getItems().setAll(filteredProjects);
+    }
 }
+
