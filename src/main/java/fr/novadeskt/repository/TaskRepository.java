@@ -1,4 +1,3 @@
-
 package fr.novadeskt.repository;
 
 import fr.novadeskt.config.Database;
@@ -13,13 +12,17 @@ import java.util.Optional;
 
 public class TaskRepository {
 
+    protected Connection getConnection() throws SQLException {
+        return Database.getConnection();
+    }
+
     public Task save(Task task) throws SQLException {
         String sql = """
                 INSERT INTO tasks(project_id, title, description, status, due_date)
                 VALUES (?, ?, ?, ?, ?)
                 """;
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -36,7 +39,8 @@ public class TaskRepository {
                 if (keys.next()) {
                     return findById(connection, keys.getLong(1))
                             .orElseThrow(() ->
-                                    new SQLException("Tâche créée mais introuvable."));
+                                    new SQLException(
+                                            "Tâche créée mais introuvable."));
                 }
             }
         }
@@ -44,11 +48,17 @@ public class TaskRepository {
         throw new SQLException("Création de la tâche impossible.");
     }
 
-    public List<Task> findByProjectId(long projectId) throws SQLException {
+    public List<Task> findByProjectId(long projectId)
+            throws SQLException {
         List<Task> tasks = new ArrayList<>();
-        String sql = "SELECT * FROM tasks WHERE project_id = ? ORDER BY id DESC";
+        String sql = """
+                SELECT *
+                FROM tasks
+                WHERE project_id = ?
+                ORDER BY id DESC
+                """;
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, projectId);
@@ -64,7 +74,7 @@ public class TaskRepository {
     }
 
     public Optional<Task> findById(long id) throws SQLException {
-        try (Connection connection = Database.getConnection()) {
+        try (Connection connection = getConnection()) {
             return findById(connection, id);
         }
     }
@@ -76,7 +86,7 @@ public class TaskRepository {
                 WHERE id = ?
                 """;
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, task.getTitle());
@@ -93,7 +103,7 @@ public class TaskRepository {
     public boolean deleteById(long id) throws SQLException {
         String sql = "DELETE FROM tasks WHERE id = ?";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
@@ -103,7 +113,6 @@ public class TaskRepository {
 
     private Optional<Task> findById(Connection connection, long id)
             throws SQLException {
-
         String sql = "SELECT * FROM tasks WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -124,7 +133,8 @@ public class TaskRepository {
         String due = result.getString("due_date");
 
         LocalDateTime createdAt = created == null
-                ? null : LocalDateTime.parse(created.replace(" ", "T"));
+                ? null
+                : LocalDateTime.parse(created.replace(" ", "T"));
 
         return new Task(
                 result.getLong("id"),
